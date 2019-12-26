@@ -1,0 +1,34 @@
+{
+  "name": "contact-mgmt-web",
+  "version": "1.0.0",
+  "description": "This is the web/API portion of the Contact Management App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ssenkus@bitbucket.org/ssenkus/contact-mgmt-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/ssenkus/contact-mgmt-web#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "express": "^4.16.2",
+    "faker": "^4.1.0",
+    "fs": "0.0.1-security",
+    "mocha": "^4.0.1",
+    "moment": "^2.19.1",
+    "mongodb": "^3.4.1",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.4",
+    "serve-favicon": "^2.4.5",
+    "underscore": "^1.8.3",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.5.0"
+  }
+}
