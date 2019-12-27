@@ -30,7 +30,6 @@ function initialize(done) {
 
 function startServer() {
     var express = require('express');
-    var favicon = require('serve-favicon');
     var bodyParser = require('body-parser');
     var errorHandler = require('./errorHandler.js');
     var routes = require('../routes/routes.js');
@@ -41,6 +40,18 @@ function startServer() {
     app.use('/app', express.static(appFolder, {
         index: 'index.html'
     }));
+
+    var allowCrossDomain = function(req, res, next) {
+        res.header('Access-Control-Allow-Origin', "*");
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        next();
+    }
+
+    // app.configure(() => {
+        app.use(allowCrossDomain);
+    // });
+
 //    app.use(favicon(appFolder + '/images/favicon.ico'));
 //    app.use(requestDomain);
     app.use(bodyParser.json({limit: '5mb'}));

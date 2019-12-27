@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {deleteContact} from '../../redux/actions';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { deleteContact } from '../../redux/actions';
 
 
 class ContactsTableRow extends Component {
@@ -19,7 +19,7 @@ class ContactsTableRow extends Component {
 
     handleCheckboxSelect(e) {
         e.stopPropagation();
-        let {contact} = this.state;
+        let { contact } = this.state;
         contact.isSelected = !contact.isSelected;
 
         this.setState({
@@ -30,7 +30,7 @@ class ContactsTableRow extends Component {
     handleClickDelete(e) {
         e.preventDefault();
         this.handleStopPropagation(e);
-        const {contact} = this.state;
+        const { contact } = this.state;
         this.props.deleteContact(contact);
     }
 
@@ -44,13 +44,13 @@ class ContactsTableRow extends Component {
     }
 
     render() {
-        const {id, firstName, lastName, isSelected} = this.state.contact;
+        const { _id, firstName, lastName, isSelected } = this.state.contact;
 
         return (
             <tr onClick={this.handleClickRow}>
                 <td><input type="checkbox" checked={isSelected} onClick={this.handleStopPropagation}
-                           onChange={this.handleCheckboxSelect}/></td>
-                <td>{id}</td>
+                    onChange={this.handleCheckboxSelect} /></td>
+                <td>{_id}</td>
                 <td>{firstName}</td>
                 <td>{lastName}</td>
                 <td>
@@ -61,4 +61,4 @@ class ContactsTableRow extends Component {
     }
 }
 
-export default connect(null, {deleteContact})(ContactsTableRow);
+export default connect(null, { deleteContact })(ContactsTableRow);

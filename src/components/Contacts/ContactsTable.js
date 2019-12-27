@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ContactsTableRow from './ContactsTableRow.js';
 import ContactsTableRowEmpty from './ContactsTableRowEmpty.js';
-
+import { getContacts } from '../../redux/actions/index.js'
 
 function getContactsTableRows(contacts) {
-    return contacts.map(contact => <ContactsTableRow key={contact.id} contact={contact}/>);
+    return contacts.map(contact => <ContactsTableRow key={contact._id} contact={contact}/>);
 }
 
 class ContactsTable extends Component {
@@ -18,10 +18,11 @@ class ContactsTable extends Component {
     }
 
     componentDidMount() {
-
+        this.props.dispatch(getContacts());
     }
 
     render() {
+        console.log('this.props', this.props);
         const contactRows = this.props.contacts.length === 0 ?
             <ContactsTableRowEmpty/> : getContactsTableRows(this.props.contacts);
 
@@ -46,7 +47,10 @@ class ContactsTable extends Component {
 
 const mapStateToProps = (state) => {
     const {contacts} = state;
-    return {contacts};
+    return {
+        contacts,
+        loading: state.loading
+    };
 };
 
 export default connect(mapStateToProps)(ContactsTable);
