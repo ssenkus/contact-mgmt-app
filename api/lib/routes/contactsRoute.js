@@ -2,6 +2,7 @@
 const log = require('../log.js');
 const contactsRepo = require('../dataAccess/contactsRepository.js');
 const Contact = require('../models/contact.js');
+const ObjectID = require('mongodb').ObjectID;
 
 
 exports.configure = (app) => {
@@ -59,6 +60,8 @@ function updateContact(req, res, done) {
 
 function deleteById(req, res, done) {
     contactsRepo.deleteById(req.params.id, (err, result) => {
+        if (err) return done(err);
+
         return res.json({
             result: result,
             success: true

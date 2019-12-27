@@ -9,8 +9,24 @@ import {
 } from '../constants/action-types.js';
 
 export function deleteContact(payload) {
-    return { type: DELETE_CONTACT, payload }
-}
+    return dispatch => {
+        // return { type: DELETE_CONTACT, payload }
+        return fetch('http://localhost:4000/api/v1/contacts/' + payload._id, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(handleErrors)
+            .then(res => res.json())
+            .then(json => {
+                dispatch({type: DELETE_CONTACT, payload});
+                return { success: true };
+            })
+            .catch(error => console.error('DEL ERR', error));
+    }
+};
 
 /* ADD CONTACTS */
 export const addContactBegin = () => ({
@@ -48,7 +64,7 @@ export function addContact(payload) {
             })
             .catch(error => dispatch(addContactFailure(error)));
     };
-}
+};
 
 /* GET CONTACTS */
 export const getContactsBegin = () => ({
@@ -66,7 +82,6 @@ export const getContactsFailure = error => ({
 });
 
 export function getContacts() {
-    console.log('getContacts action');
     return dispatch => {
         dispatch(getContactsBegin());
         return fetch("http://localhost:4000/api/v1/contacts")

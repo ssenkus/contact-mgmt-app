@@ -43,28 +43,30 @@ function rootReducer(state = initialState, action) {
         case ADD_CONTACT_BEGIN:
             return {
                 ...state,
-                loading: true,
                 error: null
             };
         case ADD_CONTACT_SUCCESS:
             let createdContact = action.payload.contact;
             return {
                 ...state,
-                loading: false,
                 contacts: [...state.contacts, createdContact]
             }
         case ADD_CONTACT_FAILURE:
             return {
                 ...state,
-                loading: false,
                 error: action.payload.error
             };
         case DELETE_CONTACT:
-            const contactToDelete = action.payload;
-            let contactsWithoutItem = state.contacts.filter(contact => contact.id !== contactToDelete.id);
-            return Object.assign({}, state, {
-                contacts: contactsWithoutItem
-            });
+            console.log('DELETE CONTACT action', action);
+            let stateContacts = state.contacts.slice();
+            let index = stateContacts.indexOf(action.payload);
+            
+            let updatedContacts = stateContacts.filter((contact) => contact._id !== action.payload._id);
+            console.log('INDEX', index);
+            return {
+                ...state,
+                contacts: [...updatedContacts]
+            }
         default:
             console.log('Unhandled action', action);
             return state;

@@ -39,8 +39,7 @@ exports.updateContact = (contact, done) => {
 };
 
 exports.deleteById = (contactId, done) => {
-    let id = new ObjectID(contactId);
-    db.contacts().deleteOne({_id: id}, (err, doc) => {
+    db.contacts().deleteOne({_id: contactId}, (err, doc) => {
         if (err) return done(err);
         return done(null, doc);
     });
