@@ -22,9 +22,19 @@ class ContactsTable extends Component {
     }
 
     render() {
+        const { error, loading, contacts } = this.props;
+
+        if (error) {
+          return <div>Error! {error.message}</div>;
+        }
+    
+        if (loading) {
+          return <div>Loading...</div>;
+        }
+
         console.log('this.props', this.props);
-        const contactRows = this.props.contacts.length === 0 ?
-            <ContactsTableRowEmpty/> : getContactsTableRows(this.props.contacts);
+        const contactRows = contacts.length === 0 ?
+            <ContactsTableRowEmpty/> : getContactsTableRows(contacts);
 
         return (
             <table className="table">
@@ -34,6 +44,7 @@ class ContactsTable extends Component {
                     <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Email Address</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -49,7 +60,8 @@ const mapStateToProps = (state) => {
     const {contacts} = state;
     return {
         contacts,
-        loading: state.loading
+        loading: state.loading,
+        error: state.error
     };
 };
 

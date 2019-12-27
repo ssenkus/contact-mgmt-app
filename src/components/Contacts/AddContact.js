@@ -10,7 +10,8 @@ class AddContact extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.state = {
             firstName: '',
-            lastName: ''
+            lastName: '',
+            emailAddress: 'test@test.com'
         };
     }
 
@@ -20,12 +21,13 @@ class AddContact extends Component {
         });
     }
 
-    handleSubmit() {
-        this.props.addContact(this.state);
+    async handleSubmit() {
+        await this.props.addContact(this.state);
 
         this.setState({
             firstName: '',
-            lastName: ''
+            lastName: '',
+            emailAddress: ''
         });
     }
 
@@ -34,6 +36,7 @@ class AddContact extends Component {
             <div>
                 <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleInputChange}/>
                 <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleInputChange}/>
+                <input type="text" name="emailAddress" value={this.state.emailAddress} onChange={this.handleInputChange}/>
                 <button onClick={this.handleSubmit}>Add Contact</button>
             </div>
         );

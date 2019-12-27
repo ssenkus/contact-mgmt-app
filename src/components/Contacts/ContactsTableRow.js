@@ -44,7 +44,7 @@ class ContactsTableRow extends Component {
     }
 
     render() {
-        const { _id, firstName, lastName, isSelected } = this.state.contact;
+        const { _id, firstName, lastName, emailAddress, isSelected } = this.state.contact;
 
         return (
             <tr onClick={this.handleClickRow}>
@@ -53,6 +53,7 @@ class ContactsTableRow extends Component {
                 <td>{_id}</td>
                 <td>{firstName}</td>
                 <td>{lastName}</td>
+                <td>{emailAddress}</td>
                 <td>
                     <button onClick={this.handleClickDelete}>Delete</button>
                 </td>

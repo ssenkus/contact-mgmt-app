@@ -21,7 +21,7 @@ function createContact(req, res, done) {
         if (err) return done(err);
 
         return res.json({
-            result: result,
+            contact: result.ops[0],
             success: true
         });
     });
@@ -53,7 +53,7 @@ function updateContact(req, res, done) {
 
     contactsRepo.updateContact(contact, (err, result) => {
         if (err) return done(err);
-        return res.json({result: result});
+        return res.json({ result: result });
     });
 }
 

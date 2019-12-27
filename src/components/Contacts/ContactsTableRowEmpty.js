@@ -8,7 +8,7 @@ class ContactsTableRowEmpty extends Component {
     render() {
         return (
             <tr>
-                <td colSpan="5"><h3 style={{ textAlign: 'center'}}>No contacts</h3></td>
+                <td colSpan="6"><h3 style={{ textAlign: 'center'}}>No contacts</h3></td>
             </tr>
         );
     }

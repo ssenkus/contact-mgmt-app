@@ -1,20 +1,56 @@
 import {
-    ADD_CONTACT, 
-    DELETE_CONTACT, 
-    GET_CONTACTS_BEGIN, 
-    GET_CONTACTS_SUCCESS, 
-    GET_CONTACTS_FAILURE
+    DELETE_CONTACT,
+    GET_CONTACTS_BEGIN,
+    GET_CONTACTS_SUCCESS,
+    GET_CONTACTS_FAILURE,
+    ADD_CONTACT_BEGIN,
+    ADD_CONTACT_SUCCESS,
+    ADD_CONTACT_FAILURE
 } from '../constants/action-types.js';
-
-
-export function addContact(payload) {
-    return { type: ADD_CONTACT, payload };
-}
 
 export function deleteContact(payload) {
     return { type: DELETE_CONTACT, payload }
 }
 
+/* ADD CONTACTS */
+export const addContactBegin = () => ({
+    type: ADD_CONTACT_BEGIN
+});
+
+export const addContactSuccess = (contact) => ({
+    type: ADD_CONTACT_SUCCESS,
+    payload: {
+        contact
+    }
+});
+
+export const addContactFailure = (error) => ({
+    type: ADD_CONTACT_FAILURE,
+    payload: { error }
+});
+
+export function addContact(payload) {
+    return dispatch => {
+        dispatch(addContactBegin())
+        return fetch('http://localhost:4000/api/v1/contacts', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(handleErrors)
+            .then(res => res.json())
+            .then(json => {
+                dispatch(addContactSuccess(json.contact));
+                return json.contacts;
+            })
+            .catch(error => dispatch(addContactFailure(error)));
+    };
+}
+
+/* GET CONTACTS */
 export const getContactsBegin = () => ({
     type: GET_CONTACTS_BEGIN
 });
